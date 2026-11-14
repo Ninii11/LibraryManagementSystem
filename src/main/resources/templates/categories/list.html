@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Categories</title>
+</head>
+<body>
+
+<h1>Book Categories</h1>
+
+<div th:if="${errorMessage}"
+     th:text="${errorMessage}"
+     style="color:red; margin-bottom:15px;">
+</div>
+
+<div th:if="${successMessage}"
+     th:text="${successMessage}"
+     style="color:green; margin-bottom:15px;">
+</div>
+
+<a th:href="@{/categories/new}">Add New Category</a>
+
+<br><br>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td>
+            <a th:href="@{/categories/edit/{id}(id=${category.id})}">
+                Edit
+            </a>
+
+            <form th:action="@{/categories/delete/{id}(id=${category.id})}"
+                  method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/books}">Back to Books</a>
+
+</body>
+</html>
